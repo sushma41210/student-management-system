@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, request, redirect
 import sqlite3
 
@@ -9,7 +10,7 @@ def home():
 
     search = request.args.get('search')
 
-    connection = sqlite3.connect('database.db')
+    connection = sqlite3.connect(os.path.join(os.path.dirname(__file__), 'database.db'))
     cursor = connection.cursor()
 
     if search:
@@ -40,7 +41,7 @@ def add_student():
         department = request.form['department']
         marks = request.form['marks']
 
-        connection = sqlite3.connect('database.db')
+        connection = sqlite3.connect(os.path.join(os.path.dirname(__file__), 'database.db'))
         cursor = connection.cursor()
 
         cursor.execute("""
@@ -61,7 +62,7 @@ def add_student():
 @app.route('/delete/<int:id>')
 def delete_student(id):
 
-    connection = sqlite3.connect('database.db')
+    connection = sqlite3.connect(os.path.join(os.path.dirname(__file__), 'database.db'))
     cursor = connection.cursor()
 
     cursor.execute("DELETE FROM students WHERE id=?", (id,))
@@ -76,7 +77,7 @@ def delete_student(id):
 @app.route('/edit/<int:id>', methods=['GET', 'POST'])
 def edit_student(id):
 
-    connection = sqlite3.connect('database.db')
+    connection = sqlite3.connect(os.path.join(os.path.dirname(__file__), 'database.db'))
     cursor = connection.cursor()
 
     # UPDATE DATA

@@ -16,5 +16,4 @@ CREATE TABLE IF NOT EXISTS students (
 
 connection.commit()
 connection.close()
-
-print("Database Created Successfully!")
+print("Database is created Successfully!")
